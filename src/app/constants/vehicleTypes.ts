@@ -1,0 +1,22 @@
+export const vehicleTypes = [
+  "Cabriolet",
+  "Campervan",
+  "Coupe",
+  "Crossover",
+  "Hatchback",
+  "Liftback",
+  "Limousine",
+  "Micro",
+  "Minibus",
+  "Minivan",
+  "Muscle car",
+  "Pickup",
+  "Roadster",
+  "Sedan",
+  "Sport car",
+  "Super car",
+  "SUV",
+  "Targa",
+  "Universal",
+  "Van"
+];

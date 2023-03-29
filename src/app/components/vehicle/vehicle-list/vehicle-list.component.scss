@@ -1,0 +1,13 @@
+.color-square {
+  width: 30px;
+  height: 30px;
+  border: thin solid black
+}
+
+.item-button {
+  margin-right: 12px;
+
+  &.item-button-last {
+    margin-right: 0;
+  }
+}

@@ -1,0 +1,40 @@
+<p-table [value]="vehicles" [tableStyle]="{'min-width': '60rem'}">
+  <ng-template pTemplate="caption">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <h3 style="display: inline"><i class="pi pi-car"></i> Vehicles</h3>
+      <p-button icon="pi pi-refresh" styleClass="p-button-rounded p-button-info p-button-outlined" (click)="refresh()"/>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Manufacturer</th>
+      <th>Model</th>
+      <th>Type</th>
+      <th>Color</th>
+      <th>Year</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-vehicle>
+    <tr>
+      <td>{{vehicle.id}}</td>
+      <td>{{vehicle.manufacturer}}</td>
+      <td>{{vehicle.model}}</td>
+      <td>{{vehicle.type}}</td>
+      <td>
+        <div
+          class="color-square"
+          [style.background-color] = "vehicle.color"
+          title="{{webColors | hexToName: vehicle.color}}">
+          </div>
+      </td>
+      <td>{{vehicle.year}}</td>
+      <td>
+        <p-button icon="pi pi-search" class="item-button" styleClass="p-button-rounded p-button-success p-button-outlined" (click)="searchVehicle(vehicle.id)"/>
+        <p-button icon="pi pi-pencil" class="item-button" styleClass="p-button-rounded p-button-warning p-button-outlined" routerLink="item/{{vehicle.id}}"/>
+        <p-button icon="pi pi-trash" class="item-button item-button-last" styleClass="p-button-rounded p-button-danger p-button-outlined" (click)="deleteVehicle(vehicle.id)"/>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

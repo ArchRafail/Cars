@@ -1,0 +1,55 @@
+:host{
+  display: block;
+  width: 500px;
+  margin: auto;
+}
+
+form .form-fields-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+
+  span, .color-list {
+    width: 75%;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .color-list .color-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+  }
+
+  span>i {
+    z-index: 100;
+  }
+
+  ::ng-deep {
+    p-dropdown {
+      .p-dropdown {
+        width: 100%;
+      }
+    }
+  }
+
+  ::ng-deep {
+    p-autocomplete {
+      .p-autocomplete {
+        width: 100%;
+
+        .p-autocomplete-input {
+          padding-left: 2.4rem;
+        }
+      }
+    }
+  }
+
+  &:last-child {
+    width: 60%;
+    margin: 24px auto auto;
+  }
+}
