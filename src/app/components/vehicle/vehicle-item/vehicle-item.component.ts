@@ -27,6 +27,8 @@ export class VehicleItemComponent {
   filteredTypes: string[] = [];
   currentDate= new Date();
   submitDisable = false;
+  error: {errorCode: number, errorName: string, errorMessage: string} | undefined = undefined;
+  loading = true;
 
   constructor(private route: ActivatedRoute, private vehicleHttpService: VehicleHttpService, private router: Router) {
     this.selectedType = this.types[0];
@@ -34,6 +36,8 @@ export class VehicleItemComponent {
 
     if(id) {
       this.getVehicle(id);
+    } else {
+      this.loading = false;
     }
   }
 
@@ -43,8 +47,12 @@ export class VehicleItemComponent {
         this.vehicle = vehicle;
         this.getColorFromHex().then(color => this.selectedColor=color);
         this.selectedType = vehicle.type;
+        this.loading = false;
       },
-      error: error => console.error(error)
+      error: error => {
+        this.error = {errorCode: error.status, errorName: error.name, errorMessage: error.statusText};
+        this.loading = false;
+      }
     })
   }
 
@@ -91,11 +99,5 @@ export class VehicleItemComponent {
     this.filteredTypes = filtered;
   }
 
-  typeValidate() {
-    if (!this.selectedType) {
-      return false;
-    }
-    return this.types.includes(this.selectedType);
-  }
-
+  protected readonly undefined = undefined;
 }

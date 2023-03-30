@@ -12,15 +12,24 @@ import { webColors } from "../../../constants/vehicleColors";
 export class VehicleListComponent {
   vehicles: Vehicle[] = [];
   webColors = webColors;
+  error: {errorCode: number, errorName: string, errorMessage: string} | undefined = undefined;
+  loading = false;
 
   constructor(private vehicleHttpService: VehicleHttpService) {
     this.getVehicles();
   }
 
   getVehicles() {
+    this.loading = true;
     this.vehicleHttpService.getAll().subscribe({
-      next: vehicles => this.vehicles = vehicles,
-      error: error => console.error(error)
+      next: vehicles => {
+        this.vehicles = vehicles;
+        this.loading = false;
+      },
+      error: error => {
+        this.error = {errorCode: error.status, errorName: error.name, errorMessage: error.statusText};
+        this.loading = false;
+      }
     })
   }
 

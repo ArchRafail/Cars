@@ -11,3 +11,35 @@
     margin-right: 0;
   }
 }
+
+::ng-deep {
+  .p-datatable-table {
+    table-layout: fixed;
+
+    .p-datatable-thead {
+      tr {
+        th:first-of-type {
+          width: 90px;
+        }
+        th:nth-of-type(5) {
+          width: 120px;
+        }
+        th:nth-of-type(6) {
+          width: 110px;
+        }
+        th:last-of-type {
+          width: 220px;
+        }
+      }
+    }
+  }
+  .p-datatable {
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
+
+    .p-datatable-tbody > tr > td {
+      padding: 0.8rem 1rem;
+    }
+  }
+}

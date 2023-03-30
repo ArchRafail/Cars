@@ -1,63 +1,84 @@
-<div class="item-title" style="text-align: center; margin-bottom: 12px"><h3>{{vehicle.id ? 'Update vehicle #'+vehicle.id : 'Add new vehicle'}}</h3></div>
-
-<form style="width: 100%" (ngSubmit)="onClickSubmit()">
-
-  <div class="form-fields-wrapper">
-    <label>Manufacturer:</label>
-    <span class="p-input-icon-left">
-        <i class="pi pi-box"></i>
-        <input #manufacturerInput="ngModel" type="text" pInputText name="manufacturer" [(ngModel)]="vehicle.manufacturer" required/>
-    </span>
+<div *ngIf="loading" class="loading-display">
+  <div class="loaderContainer">
+    <div class="innerContainer">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <p>Loading vehicle...</p>
+    </div>
   </div>
+</div>
 
-  <div class="form-fields-wrapper">
-    <label>Model:</label>
-    <span class="p-input-icon-left">
-        <i class="pi pi-ticket"></i>
-        <input #modelInput="ngModel" type="text" pInputText name="model" [(ngModel)]="vehicle.model" required/>
-    </span>
-  </div>
+<div *ngIf="error" class="error-display">
+  <img *ngIf="error.errorCode === 500" src="./assets/500Error.JPG" alt="HTTP 500 Error."/>
+  <h2 class="error-text">Something went wrong</h2>
+  <p>{{error.errorName}}, Code: {{error.errorCode}}</p>
+  <p>{{error.errorMessage}}</p>
+  <p-button label="Go Back" styleClass="p-button-raised" icon="pi pi-arrow-left" routerLink=""></p-button>
+</div>
 
-  <div class="form-fields-wrapper">
-    <label>Type:</label>
-    <span class="p-input-icon-left">
-      <i class="pi pi-tag"></i>
-      <p-autoComplete #typeInput="ngModel" [(ngModel)]="selectedType" [dropdown]="true" [suggestions]="filteredTypes" (completeMethod)="filterTypes($event)" name="type" [required]="true" appExistingTypeValidator="{{selectedType}}"></p-autoComplete>
-    </span>
-  </div>
+<div *ngIf="!loading && !error" class="form-display">
+  <div class="item-title" style="text-align: center; margin-bottom: 12px"><h3>{{vehicle.id ? 'Update vehicle #'+vehicle.id : 'Add new vehicle'}}</h3></div>
 
-  <div class="form-fields-wrapper">
-    <label>Color:</label>
-    <p-dropdown #colorInput="ngModel" [options]="webColors" name="color" [(ngModel)]="selectedColor" optionLabel="text" [filter]="true" filterBy="text" [showClear]="false" class="color-list" [required]="true">
-      <ng-template pTemplate="selectedItem">
-        <div class="color-wrapper" *ngIf="selectedColor">
-          <div style="width: 20px; height: 20px" [style.background-color] = selectedColor.hex></div>
-          <div>{{ selectedColor.text }}</div>
-        </div>
-      </ng-template>
-      <ng-template let-color pTemplate="item">
-        <div class="color-wrapper">
-          <div style="width: 20px; height: 20px" [style.background-color] = color.hex></div>
-          <div>{{ color.text }}</div>
-        </div>
-      </ng-template>
-    </p-dropdown>
-  </div>
+  <form style="width: 100%" (ngSubmit)="onClickSubmit()">
 
-  <div class="form-fields-wrapper">
-    <label>Year:</label>
-    <span class="p-input-icon-left">
-        <i class="pi pi-calendar"></i>
-        <input #yearInput="ngModel" type="number" min="1900" max="{{currentDate | date: 'YYYY'}}" pInputText name="year" [(ngModel)]="vehicle.year" required/>
-    </span>
-  </div>
+    <div class="form-fields-wrapper">
+      <label>Manufacturer:</label>
+      <span class="p-input-icon-left">
+          <i class="pi pi-box"></i>
+          <input #manufacturerInput="ngModel" type="text" pInputText name="manufacturer" [(ngModel)]="vehicle.manufacturer" required/>
+      </span>
+    </div>
 
-  <div class="form-fields-wrapper">
-    <p-button label="Back" styleClass="p-button-raised" icon="pi pi-arrow-left" routerLink=""></p-button>
-    <p-button
-      type="submit"
-      [disabled]="toBoolean(manufacturerInput.invalid || modelInput.invalid || typeInput.invalid || colorInput.invalid || yearInput.invalid) || submitDisable"
-      label="Save" styleClass="p-button-raised" icon="pi pi-save"></p-button>
-  </div>
+    <div class="form-fields-wrapper">
+      <label>Model:</label>
+      <span class="p-input-icon-left">
+          <i class="pi pi-ticket"></i>
+          <input #modelInput="ngModel" type="text" pInputText name="model" [(ngModel)]="vehicle.model" required/>
+      </span>
+    </div>
 
-</form>
+    <div class="form-fields-wrapper">
+      <label>Type:</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-tag"></i>
+        <p-autoComplete #typeInput="ngModel" [(ngModel)]="selectedType" [dropdown]="true" [suggestions]="filteredTypes" (completeMethod)="filterTypes($event)" name="type" [required]="true" appExistingTypeValidator="{{selectedType}}"></p-autoComplete>
+      </span>
+    </div>
+
+    <div class="form-fields-wrapper">
+      <label>Color:</label>
+      <p-dropdown #colorInput="ngModel" [options]="webColors" name="color" [(ngModel)]="selectedColor" optionLabel="text" [filter]="true" filterBy="text" [showClear]="false" class="color-list" [required]="true">
+        <ng-template pTemplate="selectedItem">
+          <div class="color-wrapper" *ngIf="selectedColor">
+            <div style="width: 20px; height: 20px" [style.background-color] = selectedColor.hex></div>
+            <div>{{ selectedColor.text }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-color pTemplate="item">
+          <div class="color-wrapper">
+            <div style="width: 20px; height: 20px" [style.background-color] = color.hex></div>
+            <div>{{ color.text }}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <div class="form-fields-wrapper">
+      <label>Year:</label>
+      <span class="p-input-icon-left">
+          <i class="pi pi-calendar"></i>
+          <input #yearInput="ngModel" type="number" min="1900" max="{{currentDate | date: 'YYYY'}}" pInputText name="year" [(ngModel)]="vehicle.year" required/>
+      </span>
+    </div>
+
+    <div class="form-fields-wrapper">
+      <p-button label="Back" styleClass="p-button-raised" icon="pi pi-arrow-left" routerLink=""></p-button>
+      <p-button
+        type="submit"
+        [disabled]="toBoolean(manufacturerInput.invalid || modelInput.invalid || typeInput.invalid || colorInput.invalid || yearInput.invalid) || submitDisable"
+        label="Save" styleClass="p-button-raised" icon="pi pi-save"></p-button>
+    </div>
+
+  </form>
+</div>

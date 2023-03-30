@@ -7,8 +7,7 @@ import { TabMenuModule } from "primeng/tabmenu";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import {ButtonModule} from "primeng/button";
-import {NgOptimizedImage} from "@angular/common";
+import { ButtonModule } from "primeng/button";
 import { FooterComponent } from './layout/footer/footer.component';
 
 
@@ -25,8 +24,7 @@ import { FooterComponent } from './layout/footer/footer.component';
     HttpClientModule,
     TabMenuModule,
     BrowserAnimationsModule,
-    ButtonModule,
-    NgOptimizedImage
+    ButtonModule
   ],
   providers: [],
   exports: [],
