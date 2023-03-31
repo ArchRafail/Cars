@@ -1,27 +1,19 @@
 # Cars
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Angular project.</br>
+Single page html with routing to item state.</br>
+Main page has 2 buttons on the tab menu at the top of the window: "Home" and "Add vehicle".</br>
+Also, on the main page is located list of vehicles in table format.</br>
+Each row contains id, manufacturer, model, type, color, year of vehicle.<br>
+Each row has 3 round buttons that allow search this vehicle by google, edit or delete of record.</br>
+The table can sort and filter the information by all columns.</br>
+After pressing the button "Edit" or "Add vehicle" on the main page you will be navigated to vehicle-item component.</br>
+So, depends of the button that was pressed vehicle-item component will be empty or filled with info from the table.</br>
+The form (vehicle-item component) has 2 buttons: "Back", that navigate you to the main page and "Save", that save the record.</br>
+"Save" button can be disabled if some of field is empty/invalid or after pressing the button "Save".</br>
+</br>
+Types of vehicles are a constant and contains 19 body types of vehicles.</br>
+Colors are a constant and implement 142 standard WebColors.</br>
+2 HTTP erros were processed: 404 and 500. And according to this the proper page is showing.</br>
+</br>
+Mock DB was made at mockapi.io.</br>
