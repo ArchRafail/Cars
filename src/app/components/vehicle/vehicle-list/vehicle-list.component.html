@@ -18,11 +18,11 @@
 </div>
 
 <div *ngIf="!loading && !error" class="form-display">
-  <p-table [value]="vehicles" styleClass="p-datatable-gridlines p-datatable-striped">
+  <p-table #datatable [value]="vehicles" styleClass="p-datatable-gridlines p-datatable-striped">
     <ng-template pTemplate="caption">
       <div style="display: flex; justify-content: space-between; align-items: center">
         <h3 style="display: inline"><i class="pi pi-car"></i> Vehicles</h3>
-        <p-button icon="pi pi-refresh" styleClass="p-button-rounded p-button-info p-button-outlined" (click)="refresh()"/>
+        <p-button icon="pi pi-refresh" styleClass="p-button-rounded p-button-info p-button-outlined" title="Refresh" (click)="refresh()"/>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -35,6 +35,46 @@
         <th pSortableColumn="year">Year <p-sortIcon field="code"></p-sortIcon></th>
         <th>Actions</th>
       </tr>
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="id"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="manufacturer"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="model"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter field="type" matchMode="equals" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="types" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true" appendTo="body">
+                <ng-template let-option pTemplate="item">
+                  <p-tag [value]="option"></p-tag>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter field="color" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-multiSelect [ngModel]="value" [options]="webColors" placeholder="Any" (onChange)="filter($event.value)" optionLabel="text" optionValue="text" appendTo="body">
+                <ng-template let-option pTemplate="item">
+                  <div style="display: flex; align-items: center" class="vertical-align-middle">
+                    <div class="inline-block color-square" [style.background-color] = "option.hex"></div>
+                    <span style="margin-left: 12px">{{ option.text }}</span>
+                  </div>
+                </ng-template>
+              </p-multiSelect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text"  field="year"></p-columnFilter>
+        </th>
+        <th></th>
+      </tr>
     </ng-template>
     <ng-template pTemplate="body" let-vehicle>
       <tr>
@@ -45,15 +85,15 @@
         <td>
           <div
             class="color-square"
-            [style.background-color] = "vehicle.color"
-            title="{{webColors | hexToName: vehicle.color}}">
+            [ngStyle]="{'background-color': webColors | nameToHex: vehicle.color}"
+            title="{{vehicle.color}}">
             </div>
         </td>
         <td>{{vehicle.year}}</td>
         <td>
-          <p-button icon="pi pi-search" class="item-button" styleClass="p-button-rounded p-button-success p-button-outlined" (click)="searchVehicle(vehicle.id)"/>
-          <p-button icon="pi pi-pencil" class="item-button" styleClass="p-button-rounded p-button-warning p-button-outlined" routerLink="item/{{vehicle.id}}"/>
-          <p-button icon="pi pi-trash" class="item-button item-button-last" styleClass="p-button-rounded p-button-danger p-button-outlined" (click)="deleteVehicle(vehicle.id)"/>
+          <p-button icon="pi pi-search" class="item-button" styleClass="p-button-rounded p-button-success p-button-outlined" title="Search" (click)="searchVehicle(vehicle.id)"/>
+          <p-button icon="pi pi-pencil" class="item-button" styleClass="p-button-rounded p-button-warning p-button-outlined" title="Edit" routerLink="item/{{vehicle.id}}"/>
+          <p-button icon="pi pi-trash" class="item-button item-button-last" styleClass="p-button-rounded p-button-danger p-button-outlined" title="Delete" (click)="deleteVehicle(vehicle.id)"/>
         </td>
       </tr>
     </ng-template>

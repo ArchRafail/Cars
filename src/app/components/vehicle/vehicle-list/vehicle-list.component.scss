@@ -18,24 +18,31 @@
 
     .p-datatable-thead {
       tr {
-        th:first-of-type {
-          width: 90px;
+        th:first-of-type,
+        th:nth-of-type(6) {
+          width: 130px;
         }
         th:nth-of-type(5) {
-          width: 120px;
-        }
-        th:nth-of-type(6) {
-          width: 110px;
+          width: 200px;
         }
         th:last-of-type {
           width: 220px;
+        }
+      }
+      tr:nth-of-type(2) {
+        .p-column-filter-row .p-column-filter-menu-button,
+        .p-column-filter-row .p-column-filter-clear-button {
+          display: none;
+        }
+        th:nth-of-type(5) .p-column-filter-row .p-column-filter-clear-button {
+          display: inline-flex;
         }
       }
     }
   }
   .p-datatable {
     width: 100%;
-    max-width: 1300px;
+    max-width: 1500px;
     margin: auto;
 
     .p-datatable-tbody > tr > td {

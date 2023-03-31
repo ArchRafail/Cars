@@ -1,14 +1,14 @@
 import {NgModule, Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'hexToName'
+  name: 'nameToHex'
 })
-export class HexToNamePipe implements PipeTransform {
+export class NameToHexPipe implements PipeTransform {
 
   transform(webColors: Array<{hex: string, text: string}>, key: string): any {
     let colors = webColors.map(item => {
-      if (item.hex === key)
-        return item.text;
+      if (item.text === key)
+        return item.hex;
       return "";
     });
     return colors.filter(result => result.length > 1);
@@ -17,10 +17,10 @@ export class HexToNamePipe implements PipeTransform {
 
 @NgModule({
   declarations: [
-    HexToNamePipe
+    NameToHexPipe
   ],
   exports: [
-    HexToNamePipe
+    NameToHexPipe
   ]
 })
-export class HexToNamePipeModule {}
+export class NameToHexPipeModule {}

@@ -8,10 +8,12 @@ import { ButtonModule } from "primeng/button";
 import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
 import { InputNumberModule } from "primeng/inputnumber";
-import { HexToNamePipeModule } from "../../pipes/hex-to-name.pipe";
+import { NameToHexPipeModule } from "../../pipes/name-to-hex.pipe";
 import { DropdownModule } from "primeng/dropdown";
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { ExistingTypeValidatorDirective } from "../../directives/existing-type-validator.directive";
+import {TagModule} from "primeng/tag";
+import {MultiSelectModule} from "primeng/multiselect";
 
 
 @NgModule({
@@ -32,9 +34,11 @@ import { ExistingTypeValidatorDirective } from "../../directives/existing-type-v
     FormsModule,
     InputTextModule,
     InputNumberModule,
-    HexToNamePipeModule,
+    NameToHexPipeModule,
     DropdownModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    TagModule,
+    MultiSelectModule
   ]
 })
 export class VehicleModule { }

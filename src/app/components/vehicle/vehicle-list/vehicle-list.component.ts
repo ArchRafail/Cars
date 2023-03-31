@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { Vehicle } from "../../../api/models/Vehicle";
 import { VehicleHttpService } from "../../../api/services/vehicle-http.service";
 import { webColors } from "../../../constants/vehicleColors";
+import { vehicleTypes } from "../../../constants/vehicleTypes";
+import { Table } from "primeng/table";
 
 
 @Component({
@@ -12,8 +14,10 @@ import { webColors } from "../../../constants/vehicleColors";
 export class VehicleListComponent {
   vehicles: Vehicle[] = [];
   webColors = webColors;
+  types = vehicleTypes;
   error: {errorCode: number, errorName: string, errorMessage: string} | undefined = undefined;
   loading = false;
+  @ViewChild('datatable') datatable!: Table;
 
   constructor(private vehicleHttpService: VehicleHttpService) {
     this.getVehicles();
@@ -49,6 +53,17 @@ export class VehicleListComponent {
   refresh() {
     this.vehicles = [];
     this.getVehicles();
+  }
+
+  colorFilter($event: any, field: string, matchMode: string) {
+    console.log($event.target as HTMLInputElement);
+    let searchValue = ($event.target as HTMLInputElement)?.value;
+    for (const color of webColors) {
+      if (color.text === searchValue) {
+        console.log(color.hex);
+        this.datatable.filter(color.hex, field, matchMode);
+      }
+    }
   }
 
 }

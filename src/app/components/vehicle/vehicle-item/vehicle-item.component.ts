@@ -45,7 +45,7 @@ export class VehicleItemComponent {
     this.vehicleHttpService.get(id).subscribe({
       next: vehicle => {
         this.vehicle = vehicle;
-        this.getColorFromHex().then(color => this.selectedColor=color);
+        this.getHexFromColor().then(color => this.selectedColor=color);
         this.selectedType = vehicle.type;
         this.loading = false;
       },
@@ -56,10 +56,10 @@ export class VehicleItemComponent {
     })
   }
 
-  async getColorFromHex() : Promise<{ hex: string; text: string }> {
+  async getHexFromColor() : Promise<{ hex: string; text: string }> {
     let colors: Array<{hex:string, text: string}> = [];
     for (const color of webColors) {
-      if(color.hex === this.vehicle.color)
+      if(color.text === this.vehicle.color)
         colors.push(color);
     }
     return colors[0];
@@ -67,7 +67,7 @@ export class VehicleItemComponent {
 
   onClickSubmit() {
     this.submitDisable = true;
-    this.vehicle.color = this.selectedColor.hex;
+    this.vehicle.color = this.selectedColor.text;
     this.vehicle.type = this.selectedType!;
     if(this.vehicle.id) {
       this.vehicleHttpService.update(this.vehicle).subscribe({
